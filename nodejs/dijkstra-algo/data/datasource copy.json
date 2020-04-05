@@ -1,0 +1,97 @@
+[
+    {
+        "source": "A",
+        "destination": "B",
+        "distance": 3
+    },
+    {
+        "source": "A",
+        "destination": "D",
+        "distance": 4
+    },
+    {
+        "source": "A",
+        "destination": "S",
+        "distance": 7
+    },
+    {
+        "source": "B",
+        "destination": "A",
+        "distance": 3
+    },    
+    {
+        "source": "B",
+        "destination": "S",
+        "distance": 2
+    },
+    {
+        "source": "B",
+        "destination": "D",
+        "distance": 4
+    },
+    {
+        "source": "B",
+        "destination": "H",
+        "distance": 1
+    },    
+    {
+        "source": "C",
+        "destination": "S",
+        "distance": 3
+    },
+    {
+        "source": "C",
+        "destination": "L",
+        "distance": 2
+    },
+    {
+        "source": "D",
+        "destination": "F",
+        "distance": 5
+    },
+    {
+        "source": "E",
+        "destination": "G",
+        "distance": 2
+    },
+    {
+        "source": "E",
+        "destination": "K",
+        "distance": 5
+    },
+    {
+        "source": "F",
+        "destination": "H",
+        "distance": 3
+    },
+    {
+        "source": "G",
+        "destination": "H",
+        "distance": 2
+    },
+    {
+        "source": "I",
+        "destination": "K",
+        "distance": 4
+    },
+    {
+        "source": "I",
+        "destination": "L",
+        "distance": 4
+    },
+    {
+        "source": "I",
+        "destination": "J",
+        "distance": 6
+    },
+    {
+        "source": "J",
+        "destination": "L",
+        "distance": 4
+    },
+    {
+        "source": "J",
+        "destination": "K",
+        "distance": 4
+    }                                          
+]
