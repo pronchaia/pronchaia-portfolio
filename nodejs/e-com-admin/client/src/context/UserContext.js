@@ -7,6 +7,8 @@ function userReducer(state, action) {
   switch (action.type) {
     case "LOGIN_SUCCESS":
       return { ...state, isAuthenticated: true };
+    case "LOGIN_FAILURE":
+      return { ...state, isAuthenticated: false };
     case "SIGN_OUT_SUCCESS":
       return { ...state, isAuthenticated: false };
     default: {
@@ -52,16 +54,33 @@ export { UserProvider, useUserState, useUserDispatch, loginUser, signOut };
 function loginUser(dispatch, login, password, history, setIsLoading, setError) {
   setError(false);
   setIsLoading(true);
-
   if (!!login && !!password) {
-    setTimeout(() => {
-      localStorage.setItem('id_token', 1)
-      setError(null)
-      setIsLoading(false)
-      dispatch({ type: 'LOGIN_SUCCESS' })
+    fetch("/auth/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: login,
+        password
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          localStorage.setItem('id_token', 1)
+          setError(null)
+          setIsLoading(false)
+          dispatch({ type: 'LOGIN_SUCCESS' })
 
-      history.push('/app/dashboard')
-    }, 2000);
+          history.push('/app/dashboard')
+        } else {
+          dispatch({ type: "LOGIN_FAILURE" });
+          setError(true);
+          setIsLoading(false);
+        }
+      })
+      .catch(error => console.error(error));
   } else {
     dispatch({ type: "LOGIN_FAILURE" });
     setError(true);
@@ -70,7 +89,23 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 }
 
 function signOut(dispatch, history) {
-  localStorage.removeItem("id_token");
-  dispatch({ type: "SIGN_OUT_SUCCESS" });
-  history.push("/login");
+  fetch("/auth/logout", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => {
+      if (res.ok) {
+        localStorage.removeItem("id_token");
+        dispatch({ type: "SIGN_OUT_SUCCESS" });
+        history.push("/login");
+      } else {
+        dispatch({ type: "SIGN_OUT_FAILURE" });
+      }
+    })
+    .catch(error => console.error(error));
+
+
 }

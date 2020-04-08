@@ -53,8 +53,7 @@ function Login(props) {
           >
             <Tab label="Login" classes={{ root: classes.tab }} />
           </Tabs>
-          {activeTabId === 0 && (
-            <React.Fragment>
+          <React.Fragment>
               <Fade in={error}>
                 <Typography color="secondary" className={classes.errorMessage}>
                   Something is wrong with your login or password :(
@@ -123,11 +122,10 @@ function Login(props) {
                   Forget Password
                 </Button>
               </div>
-            </React.Fragment>
-          )}          
+            </React.Fragment>       
         </div>
         <Typography color="primary" className={classes.copyright}>
-          © 2014-2019 Flatlogic, LLC. All rights reserved.
+          user:admin@admin.com,password:admin.
         </Typography>
       </div>
     </Grid>
