@@ -1,27 +1,28 @@
 const Router = require('koa-router');
 const router = new Router({ prefix: '/producttype' });
 const ProductTypeService = require('../services/ProductTypeService');
+const { isAuthenticated } = require('../utils/utils');
 
-router.get('/', async (ctx, next) => {
+router.get('/', isAuthenticated, async (ctx, next) => {
     const allData = await ProductTypeService.getAllData();
     ctx.status = 200;
     ctx.body = allData;
 });
 
-router.get('/:id', async (ctx, next) => {
+router.get('/:id', isAuthenticated, async (ctx, next) => {
     const allData = await ProductTypeService.getData(ctx.params.id);
     ctx.status = 200;
     ctx.body = allData;
 });
 
-router.post('/', async (ctx, next) => {
+router.post('/', isAuthenticated, async (ctx, next) => {
     const newData = ctx.request.body;
     try {
-        const createdData= await ProductTypeService.addData(newData);
+        const createdData = await ProductTypeService.addData(newData);
         ctx.status = 200;
         ctx.body = {
             status: "success",
-            data:createdData
+            data: createdData
         };
     } catch (error) {
         ctx.status = 400;
@@ -32,14 +33,14 @@ router.post('/', async (ctx, next) => {
     }
 });
 
-router.put('/:id', async (ctx, next) => {
+router.put('/:id', isAuthenticated, async (ctx, next) => {
     const updateData = ctx.request.body;
     try {
-        const updatedData= await ProductTypeService.updateData(ctx.params.id, updateData);
+        const updatedData = await ProductTypeService.updateData(ctx.params.id, updateData);
         ctx.status = 200;
         ctx.body = {
             status: "success",
-            data:updatedData
+            data: updatedData
         };
     } catch (error) {
         ctx.status = 400;
@@ -50,7 +51,7 @@ router.put('/:id', async (ctx, next) => {
     }
 });
 
-router.delete('/:id', async (ctx, next) => {
+router.delete('/:id', isAuthenticated, async (ctx, next) => {
     const deletedData = await ProductTypeService.deleteData(ctx.params.id);
     ctx.status = 200;
     ctx.body = deletedData;
